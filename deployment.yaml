@@ -1,20 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
   labels:
-      env: prod
-      app: applicationtesting
+    app: tch-demo
+  name: tch-demo
 spec:
   replicas: 2
   selector:
     matchLabels:
-      deploy: example
+      app: tch-demo
   template:
     metadata:
       labels:
-        deploy: example
+        app: tch-demo
     spec:
       containers:
-        - name: nginx
-          image: nginx:1.23.0
+      - image: nginx:1.23.0
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+            - name: nginx-index-file
+              mountPath: /usr/share/nginx/html/
+      # create volume to host nginx homehtml page    
+      volumes:
+      - name: nginx-index-file
+        configMap:
+          name: index-html-tch-configmap
