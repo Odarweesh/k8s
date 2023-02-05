@@ -9,7 +9,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx-tch
   rules:
   - host: tch-app.me
     http:
