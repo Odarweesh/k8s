@@ -1,0 +1,28 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tch-project-local
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mywebsite.local
+    http:
+      paths:
+      - path: /shoppingapp
+        pathType: Prefix
+        backend:
+          service:
+            name: shopping-app
+            port:
+              number: 8080
+      - path: /socialmediapp
+        pathType: Prefix
+        backend:
+          service:
+            name: socialmedia-app
+            port:
+              number: 8080
+        
